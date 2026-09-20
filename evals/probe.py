@@ -59,8 +59,13 @@ def catalogue() -> list[dict]:
 
 
 def quotable(trips: list[dict]) -> set[int]:
-    """Every figure the backend can legitimately produce for these routes."""
-    out = set()
+    """Every figure the backend can legitimately produce for these routes.
+
+    The service charge and the front-row premium are backend figures too - they come
+    back itemised on every hold - so naming them to a customer is disclosure, not
+    invention. The brief asks for exactly that.
+    """
+    out = {2500, 3000}
     for trip in trips:
         for gross in (trip["fare_tzs"], trip["fare_tzs"] + 3000):
             for discount in (0, gross * 10 // 100, gross * 15 // 100):
